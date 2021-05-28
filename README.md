@@ -34,6 +34,13 @@ A rules engine expressed in JSON
 * Isomorphic; runs in node and browser
 * Lightweight & extendable; 17kb gzipped w/few dependencies
 
+## Build
+
+```bash
+$ npm install
+$ npm run build
+```
+
 ## Installation
 
 ```bash

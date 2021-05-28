@@ -16,7 +16,7 @@
  */
 
 require('colors')
-const { Engine } = require('json-rules-engine')
+const { Engine } = require('../dist/json-rules-engine')
 
 async function start () {
   /**
@@ -29,7 +29,7 @@ async function start () {
    */
   engine.addOperator('startsWith', (factValue, jsonValue) => {
     if (!factValue.length) return false
-    return factValue[0].toLowerCase() === jsonValue.toLowerCase()
+    return factValue.toLowerCase().startsWith(jsonValue.toLowerCase())
   })
 
   /**

@@ -11,7 +11,7 @@
  */
 
 require('colors')
-const { Engine } = require('json-rules-engine')
+const { Engine } = require('../dist/json-rules-engine')
 
 // example client for making asynchronous requests to an api, database, etc
 const apiClient = require('./support/account-api-client')
@@ -63,8 +63,8 @@ async function start () {
    */
   engine.addFact('account-information', function (params, almanac) {
     return almanac.factValue('accountId')
-      .then(accountId => {
-        return apiClient.getAccountInformation(accountId)
+      .then(value => {
+        return apiClient.getAccountInformation(value)
       })
   })
 

@@ -10,7 +10,7 @@
  */
 
 require('colors')
-const { Engine } = require('json-rules-engine')
+const { Engine } = require('../dist/json-rules-engine')
 
 async function start () {
   /**
@@ -47,7 +47,7 @@ async function start () {
     event: { // define the event to fire when the conditions evaluate truthy
       type: 'fouledOut',
       params: {
-        message: 'Player has fouled out!'
+        message: 'Player has fouled out@!'
       }
     }
   })

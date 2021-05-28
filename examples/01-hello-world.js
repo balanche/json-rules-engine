@@ -10,7 +10,7 @@
  */
 
 require('colors')
-const { Engine } = require('json-rules-engine')
+const { Engine } = require('../dist/json-rules-engine')
 
 async function start () {
   /**
@@ -47,7 +47,31 @@ async function start () {
   const facts = { displayMessage: true }
 
   // engine.run() evaluates the rule using the facts provided
-  const { events } = await engine.run(facts)
+  const eng = await engine.run(facts)
+  const { events } = eng
+
+  /**
+   * 
+  { almanac:
+    Almanac {
+      factMap: Map { 'displayMessage' => [Fact] },
+      factResultsCache: Map { 1379355303170 => [Promise] },
+      allowUndefinedFacts: false,
+      pathResolver: [Function: defaultPathResolver],
+      events: { success: [Array], failure: [] },
+      ruleResults: [ [RuleResult] ] },
+    results:
+    [ RuleResult {
+        conditions: [Condition],
+        event: [Object],
+        priority: 1,
+        name: undefined,
+        result: true } ],
+    failureResults: [],
+    events: [ { type: 'message', params: [Object] } ],
+    failureEvents: [] }
+   */
+  console.log(eng)
 
   events.map(event => console.log(event.params.data.green))
 }

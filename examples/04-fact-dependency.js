@@ -12,7 +12,7 @@
  */
 
 require('colors')
-const { Engine } = require('json-rules-engine')
+const { Engine } = require('../dist/json-rules-engine')
 const accountClient = require('./support/account-api-client')
 
 async function start () {
@@ -40,7 +40,29 @@ async function start () {
         path: '$.status'
       }]
     },
-    event: { type: 'microsoft-terminated-employees' }
+    event: { type: 'microsoft-terminated-employees' },
+    // 若使用以下代码，则可以注释掉 engine.addFact('employee-tenure', (params, almanac) 模块
+    // onSuccess: async function (event, almanac) {
+    //  let year = almanac.factValue('account-information')
+    //     .then(accountInformation => {
+    //       const created = new Date(accountInformation.createdAt)
+    //       const now = new Date()
+    //       return now.getFullYear() - created.getFullYear()
+    //     })
+    //     .catch(console.log)
+    //   almanac.addRuntimeFact('employee-tenure', year)
+    // },
+    // onFailure: async function (event, almanac) {
+    //   let year = almanac.factValue('account-information')
+    //   .then(accountInformation => {
+    //     const created = new Date(accountInformation.createdAt)
+    //     const now = new Date()
+    //     return now.getFullYear() - created.getFullYear()
+    //   })
+    //   .catch(console.log)
+    // almanac.addRuntimeFact('employee-tenure', year)
+    // },
+    priority: 10
   }
   engine.addRule(microsoftRule)
 
@@ -60,7 +82,8 @@ async function start () {
         }
       }]
     },
-    event: { type: 'five-year-tenure' }
+    event: { type: 'five-year-tenure' },
+    priority: 5
   }
   engine.addRule(tenureRule)
 
@@ -95,7 +118,7 @@ async function start () {
     return almanac.factValue('account-information')
       .then(accountInformation => {
         const created = new Date(accountInformation.createdAt)
-        const now = new Date()
+        const now = new Date()// (2005-04-03,2012-02-14)
         switch (params.unit) {
           case 'years':
             return now.getFullYear() - created.getFullYear()

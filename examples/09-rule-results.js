@@ -9,7 +9,7 @@
  *   DEBUG=json-rules-engine node ./examples/09-rule-results.js
  */
 require('colors')
-const { Engine } = require('json-rules-engine')
+const { Engine } = require('../dist/json-rules-engine')
 
 async function start () {
   /**
@@ -61,6 +61,7 @@ async function start () {
    * On success, retrieve the student's username and print rule name for display purposes, and render
    */
   engine.on('success', (event, almanac, ruleResult) => {
+    // console.log(ruleResult)
     almanac.factValue('username').then(username => {
       render(`${username.bold} succeeded ${ruleResult.name}! ${event.params.message}`, ruleResult)
     })
